@@ -11,11 +11,16 @@ function youtdl(req, res, next) {
 
   if (!ytdl.validateID(idVideo)) idVideo = ytdl.getURLVideoID(idVideo);
 
-  const { vd_format, vd_quality } = req.query;
-  res.header(
-    "Content-Disposition",
-    `attachment; filename="${idVideo}.${vd_format}"`
-  );
+  const { vd_format, vd_quality, vd_type } = req.query;
+
+  if (vd_type == "attach") {
+    res.header("Content-Type", `video/${vd_format}`);
+  } else {
+    res.header(
+      "Content-Disposition",
+      `attachment; filename="${idVideo}.${vd_format}"`
+    );
+  }
 
   ytdl(idVideo, {
     filter: (format) => format.container === vd_format,
@@ -32,6 +37,7 @@ function youtdlCheck(req, res) {
     res.send(info.videoDetails);
   });
 }
+
 module.exports = {
   youtdl,
   youtdlCheck,
