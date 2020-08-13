@@ -12,6 +12,7 @@
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
     "js-file-download": "^0.4.12",
+    "vee-validate": "^3.3.9",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4"
   },

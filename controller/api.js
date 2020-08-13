@@ -13,7 +13,7 @@ function youtdl(req, res, next) {
 
   const { vd_format, vd_quality, vd_type } = req.query;
 
-  if (vd_type == "attach") {
+  if (vd_type == "stream") {
     res.header("Content-Type", `video/${vd_format}`);
   } else {
     res.header(

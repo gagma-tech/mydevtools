@@ -6,16 +6,16 @@ module.exports = {
       extractCSSPlugin &&
         extractCSSPlugin.tap(() => [
           {
-            filename: "[name].css",
-            chunkFilename: "[name].css",
+            filename: "css/[name].css",
+            chunkFilename: "css/[name].css",
           },
         ]);
     }
   },
   configureWebpack: {
     output: {
-      filename: "[name].js",
-      chunkFilename: "[name].js",
+      filename: "js/[name].js",
+      chunkFilename: "js/[name].js",
     },
   },
   outputDir: "../public/dist/",

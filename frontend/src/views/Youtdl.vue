@@ -22,7 +22,7 @@
             Check</b-button
           >
         </div>
-        <br/>
+        <br />
       </div>
       <div v-else>
         <b-card
@@ -33,51 +33,69 @@
         >
           <b-card-text>
             <h3>{{ res.title }}</h3>
-            <b-form-select v-model="video.vd_quality" class="mb-3">
-              <template v-slot:first>
-                <b-form-select-option :value="null" disabled
-                  >Quality</b-form-select-option
-                >
-              </template>
+            <ValidationObserver ref="observer">
+              <ValidationProvider
+                name="quality"
+                rules="required"
+                v-slot="{ errors }"
+              >
+                <b-form-select v-model="video.vd_quality" class="mb-3">
+                  <template v-slot:first>
+                    <b-form-select-option :value="null" disabled
+                      >Quality</b-form-select-option
+                    >
+                  </template>
 
-              <b-form-select-option value="highest"
-                >Highest</b-form-select-option
+                  <b-form-select-option value="highest"
+                    >Highest</b-form-select-option
+                  >
+                  <b-form-select-option value="lowest"
+                    >Lowest</b-form-select-option
+                  >
+                  <b-form-select-option value="lowestaudio"
+                    >Lowest audio</b-form-select-option
+                  >
+                  <b-form-select-option value="highestaudio"
+                    >Highest audio</b-form-select-option
+                  >
+                  <b-form-select-option value="highestvideo"
+                    >Highest video</b-form-select-option
+                  >
+                  <b-form-select-option value="lowestvideo"
+                    >Lowest video</b-form-select-option
+                  >
+                </b-form-select>
+                <p style="color:red">{{ errors[0] }}</p>
+              </ValidationProvider>
+              <ValidationProvider
+                name="format"
+                rules="required"
+                v-slot="{ errors }"
               >
-              <b-form-select-option value="lowest">Lowest</b-form-select-option>
-              <b-form-select-option value="lowestaudio"
-                >Lowest audio</b-form-select-option
-              >
-              <b-form-select-option value="highestaudio"
-                >Highest audio</b-form-select-option
-              >
-              <b-form-select-option value="highestvideo"
-                >Highest video</b-form-select-option
-              >
-              <b-form-select-option value="lowestvideo"
-                >Lowest video</b-form-select-option
-              >
-            </b-form-select>
-            <b-form-select v-model="video.vd_format" class="mb-3">
-              <template v-slot:first>
-                <b-form-select-option :value="null" disabled
-                  >Format</b-form-select-option
+                <b-form-select v-model="video.vd_format" class="mb-3">
+                  <template v-slot:first>
+                    <b-form-select-option :value="null" disabled
+                      >Format</b-form-select-option
+                    >
+                  </template>
+                  <b-form-select-option value="mp4">Mp4</b-form-select-option>
+                  <b-form-select-option value="webm">Webm</b-form-select-option>
+                </b-form-select>
+                <p style="color:red">{{ errors[0] }}</p>
+              </ValidationProvider>
+              <div>
+                <b-button variant="primary" @click="download('attach')">
+                  Download
+                </b-button>
+                <b-button
+                  variant="success"
+                  @click="download('stream')"
+                  style="margin:5px"
                 >
-              </template>
-              <b-form-select-option value="mp4">Mp4</b-form-select-option>
-              <b-form-select-option value="webm">Webm</b-form-select-option>
-            </b-form-select>
-            <div>
-              <b-button block variant="primary" @click="download()">
-                <template v-if="isLoading">
-                  <b-spinner
-                    variant="primary"
-                    type="grow"
-                    label="Spinning"
-                  ></b-spinner>
-                </template>
-                Download
-              </b-button>
-            </div>
+                  Watch
+                </b-button>
+              </div>
+            </ValidationObserver>
           </b-card-text>
         </b-card>
       </div>
@@ -94,6 +112,10 @@ export default {
         link: "",
         vd_format: null,
         vd_quality: null,
+        errors: {
+          vd_format: null,
+          vd_quality: null,
+        },
       },
       isLoading: false,
       passToDownload: false,
@@ -114,15 +136,20 @@ export default {
         }
       );
     },
-    download() {
-      window.open(
-        ytldDownload(
-          this.video.link,
-          this.video.vd_format,
-          this.video.vd_quality
-        ),
-        "_blank"
-      );
+    download(vd_type) {
+      this.$refs.observer.validate().then((bool) => {
+        if (bool) {
+          window.open(
+            ytldDownload(
+              this.video.link,
+              this.video.vd_format,
+              this.video.vd_quality,
+              vd_type
+            ),
+            "_blank"
+          );
+        }
+      });
     },
   },
 };
