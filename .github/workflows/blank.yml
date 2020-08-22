@@ -25,3 +25,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: install npm
       run:  npm install
+    - name: lerna bootstrapping
+      run:  npm bootstrap
+      
