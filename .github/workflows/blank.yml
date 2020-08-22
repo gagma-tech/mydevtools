@@ -26,5 +26,5 @@ jobs:
     - name: install npm
       run:  npm install
     - name: lerna bootstrapping
-      run:  npm bootstrap
+      run:  npm run bootstrap
       
