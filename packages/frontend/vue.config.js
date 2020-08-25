@@ -18,5 +18,5 @@ module.exports = {
       chunkFilename: "js/[name].js",
     },
   },
-  outputDir: "../backend/public/",
+  outputDir: "../backend/public/dist",
 };
