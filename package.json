@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna boostrap"
+    "bootstrap": "lerna bootstrap",
+    "build-frontend": "lerna run build"
   },
   "devDependencies": {
     "lerna": "^3.22.1"
