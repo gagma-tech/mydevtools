@@ -11,7 +11,9 @@ router.get(
       if (ytdl.validateID(val) || ytdl.validateURL(val)) return true;
       return Promise.reject("Invalid Youtube video");
     }),
+
     query("vd_format").isIn(["mp4", "webm"]),
+    
     query("vd_type").isIn(["stream", "attach"]),
     query("vd_quality").isIn([
       "highest",
