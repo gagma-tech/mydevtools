@@ -29,7 +29,7 @@ jobs:
       - name: testing api
         run: npm run test
       - name: build frontend
-        run: npm run build-fronten
+        run: npm run build-frontend
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -40,11 +40,13 @@ jobs:
       - name: Push to server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
+          host: ${{ secrets.SERVER }}
+          username: ${{ secrets.USERNAME }}
           key:  ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          port:  ${{ secrets.port }}
-          script: |
+          port:  ${{ secrets.PORT }}
+          script: ${{ secrets.SCRIPT }}
+                  
+                  
 
     
