@@ -24,8 +24,9 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           port:  ${{ secrets.PORT }}
           script: |
-                  ls
-                  
-                  
-
-    
+                  cd mydevtools.online 
+                  git pull origin master
+                  cd ../
+                  source nodevenv/mydevtools.online/packages/backend/10/bin/activate 
+                  cd mydevtools.online/packages/backend
+                  npm install
