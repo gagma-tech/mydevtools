@@ -11,4 +11,8 @@ export default new VueRouter({
     { name: "doc2pdf", path: "/doctopdf", component: DocToPdf },
     { name: "base64", path: "/base64", component: Base64 },
   ],
+  mode:'history',
+  scrollBehavior(){
+    return { x:0,y:0}
+  }
 });
