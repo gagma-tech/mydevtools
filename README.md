@@ -1,6 +1,6 @@
 # Devtools 
 
-Devtools api can be used to by any one in production
+Devtools api can be used to by anyone in production
 
 
 # apis
@@ -15,7 +15,7 @@ Route : **api/v1/youtdl**  <br> Request config :  **{ method : GET , query : { v
 
 
 # Add apis 
-   clone the repository  and move dev branch add your apis  and make you share testing api before add it
+   clone the repository  and move dev branch add your apis  and make you sure testing api before add it
    technology used
    
         - Lerna : for mono repo
